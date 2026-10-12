@@ -1,0 +1,82 @@
+### Launchpad REST API Testing Collection (VS Code REST Client format)
+@baseUrl = http://localhost:5000/api
+
+### 1. Health Check
+GET {{baseUrl}}/health
+Accept: application/json
+
+### 2. Get All Internships (Paginated)
+GET {{baseUrl}}/internships?page=1&limit=10
+Accept: application/json
+
+### 3. Filter Internships by Domain (Full Stack Development)
+GET {{baseUrl}}/internships?domain=Full Stack Development
+Accept: application/json
+
+### 4. Filter Internships by Mode (Remote)
+GET {{baseUrl}}/internships?mode=Remote
+Accept: application/json
+
+### 5. Search Internships by Keyword (e.g. SQL)
+GET {{baseUrl}}/internships?search=SQL
+Accept: application/json
+
+### 6. Get Single Internship by ID (INT-101)
+GET {{baseUrl}}/internships/INT-101
+Accept: application/json
+
+### 7. Create a New Internship (POST)
+POST {{baseUrl}}/internships
+Content-Type: application/json
+
+{
+  "id": "INT-301",
+  "title": "Backend Systems Intern",
+  "domain": "Full Stack Development",
+  "mode": "Remote",
+  "location": "India",
+  "duration_weeks": 8,
+  "openings": 2,
+  "skills": ["Node.js", "Express", "SQLite", "Jest"],
+  "description": "Build high-throughput REST APIs and design resilient relational databases.",
+  "applications_open": 1
+}
+
+### 8. Update an Existing Internship (PUT)
+PUT {{baseUrl}}/internships/INT-301
+Content-Type: application/json
+
+{
+  "title": "Lead Backend Systems Intern",
+  "openings": 4
+}
+
+### 9. Delete an Internship (DELETE)
+DELETE {{baseUrl}}/internships/INT-301
+Accept: application/json
+
+### 10. Submit Sample Application (POST)
+POST {{baseUrl}}/applications
+Content-Type: application/json
+
+{
+  "internship_id": "INT-101",
+  "applicant_name": "Jordan Smith",
+  "applicant_email": "jordan.smith@example.com",
+  "portfolio_url": "https://github.com/jordansmith",
+  "notes": "Excited to contribute to frontend accessibility and design systems!"
+}
+
+### 11. Duplicate Application Protection Check (Should return 409 Conflict)
+POST {{baseUrl}}/applications
+Content-Type: application/json
+
+{
+  "internship_id": "INT-101",
+  "applicant_name": "Jordan Smith",
+  "applicant_email": "jordan.smith@example.com"
+}
+
+### 12. View Applications Audit Log (Safe Masked View)
+GET {{baseUrl}}/applications
+Accept: application/json

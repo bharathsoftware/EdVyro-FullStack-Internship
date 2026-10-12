@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Launchpad - Modern, responsive internship board designed with vanilla HTML5, CSS3, and JavaScript. Discover and apply to curated tech opportunities.">
+  <meta name="keywords" content="internships, tech careers, full stack, web development, software engineering, launchpad, edvyro">
+  <meta name="author" content="EdVyro Full Stack Internship Candidate">
+  <meta property="og:title" content="Launchpad — Responsive Internship Board">
+  <meta property="og:description" content="Discover curated tech internship opportunities. Responsive, accessible, and high-performance.">
+  <meta property="og:type" content="website">
+
+  <title>Launchpad — Internship Discovery Board</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Skip to Content Link for Screen Readers / Keyboard Navigation -->
+  <a href="#mainContent" class="skip-link">Skip to main content</a>
+
+  <!-- Top Announcement Bar / Fictional Data Notice -->
+  <div class="announcement-bar" role="region" aria-label="Project notice">
+    <div class="container announcement-inner">
+      <span class="announcement-pill">EdVyro Assessment</span>
+      <p class="announcement-text">
+        Fictional sample dataset created for Full Stack Internship Task 2 &amp; Task 3. No real personal records collected.
+      </p>
+      <div class="api-status-badge" id="apiStatusBadge" aria-live="polite" title="API Connectivity State">
+        <span class="status-dot status-checking" id="statusDot" aria-hidden="true"></span>
+        <span class="status-label" id="statusLabel">Checking API...</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header & Navigation -->
+  <header class="site-header" role="banner">
+    <div class="container header-container">
+      <div class="brand">
+        <a href="index.html" class="brand-link" aria-label="Launchpad Home">
+          <div class="brand-logo" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+              <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+              <path d="M9 12H4s.55-3.03 2-4.5c1.26-1.28 3.5-1.5 3.5-1.5"/>
+              <path d="M15 6v5s3.03.55 4.5 2c1.28 1.26 1.5 3.5 1.5 3.5"/>
+            </svg>
+          </div>
+          <span class="brand-name">Launchpad</span>
+        </a>
+      </div>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <ul class="nav-list">
+          <li><a href="#listingsSection" class="nav-link">Internships</a></li>
+          <li><a href="#aboutSection" class="nav-link">About Project</a></li>
+          <li><a href="#apiInfoSection" class="nav-link">API Specs</a></li>
+          <li>
+            <button type="button" class="btn btn-outline-sm" id="toggleModeBtn" title="Switch between Live API and Local JSON Demo">
+              Toggle Mode
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Landmark -->
+  <main id="mainContent" class="main-content" role="main">
+
+    <!-- Hero Section -->
+    <section class="hero-section" aria-labelledby="heroTitle">
+      <div class="container hero-container">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="sparkle-icon" aria-hidden="true">✨</span>
+            Verified Sample Opportunities
+          </div>
+          <h1 id="heroTitle" class="hero-title">
+            Discover Your Next <span class="gradient-text">Tech Internship</span>
+          </h1>
+          <p class="hero-subtitle">
+            Explore curated roles in Full Stack Development, UI/UX, Data Analytics, and Cybersecurity. Filter by work mode, search required skills, and preview real-time API persistence.
+          </p>
+
+          <div class="hero-metrics" aria-label="Platform Highlights">
+            <div class="metric-card">
+              <span class="metric-number" id="metricRoles">9</span>
+              <span class="metric-label">Curated Roles</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-number">100%</span>
+              <span class="metric-label">Vanilla Stack</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-number">WCAG</span>
+              <span class="metric-label">AA Accessible</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search and Filter Section -->
+    <section class="filters-section" id="searchArea" aria-labelledby="filterHeading">
+      <div class="container">
+        <h2 id="filterHeading" class="visually-hidden">Search and filter internships</h2>
+
+        <form class="filters-card" id="filterForm" role="search" aria-label="Filter internships">
+          <div class="filter-grid">
+            <!-- Search Input -->
+            <div class="form-group search-group">
+              <label for="searchInput" class="form-label">Search Keywords</label>
+              <div class="input-with-icon">
+                <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input
+                  type="search"
+                  id="searchInput"
+                  name="search"
+                  class="form-control"
+                  placeholder="Role, skill (e.g. Node.js, SQL), location..."
+                  autocomplete="off"
+                >
+              </div>
+            </div>
+
+            <!-- Domain Filter Dropdown -->
+            <div class="form-group">
+              <label for="domainFilter" class="form-label">Domain</label>
+              <select id="domainFilter" name="domain" class="form-select">
+                <option value="">All Domains</option>
+                <option value="Full Stack Development">Full Stack Development</option>
+                <option value="Web Development">Web Development</option>
+                <option value="UI/UX">UI/UX Design</option>
+                <option value="Data Analytics">Data Analytics</option>
+                <option value="Cyber Security">Cyber Security</option>
+                <option value="C++ Programming">C++ Programming</option>
+              </select>
+            </div>
+
+            <!-- Work Mode Dropdown -->
+            <div class="form-group">
+              <label for="modeFilter" class="form-label">Work Mode</label>
+              <select id="modeFilter" name="mode" class="form-select">
+                <option value="">All Modes</option>
+                <option value="Remote">Remote</option>
+                <option value="Hybrid">Hybrid</option>
+                <option value="On-site">On-site</option>
+              </select>
+            </div>
+
+            <!-- Sort By Dropdown -->
+            <div class="form-group">
+              <label for="sortFilter" class="form-label">Sort By</label>
+              <select id="sortFilter" name="sort" class="form-select">
+                <option value="newest">Newest First</option>
+                <option value="title_asc">Title (A - Z)</option>
+                <option value="duration_desc">Duration (Longest)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Filter Action Controls -->
+          <div class="filter-actions">
+            <div class="active-source-info">
+              <span class="source-tag" id="currentSourceTag">Source: Checking...</span>
+            </div>
+            <button type="button" id="resetBtn" class="btn btn-secondary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                <path d="M3 3v5h5"/>
+              </svg>
+              Reset Filters
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Listings Section -->
+    <section class="listings-section" id="listingsSection" aria-labelledby="listingsHeading">
+      <div class="container">
+        <!-- Results Header Bar -->
+        <div class="results-header">
+          <div class="results-meta">
+            <h2 id="listingsHeading" class="results-title">Available Positions</h2>
+            <p id="resultsCount" class="results-count" aria-live="polite">Loading opportunities...</p>
+          </div>
+          <div class="results-controls">
+            <button type="button" id="refreshBtn" class="btn btn-ghost-sm" aria-label="Refresh listings">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+              </svg>
+              Refresh
+            </button>
+          </div>
+        </div>
+
+        <!-- Dynamic Listings Container -->
+        <div id="internshipsContainer" class="cards-grid" aria-live="polite">
+          <!-- Populated dynamically via script.js -->
+        </div>
+
+        <!-- Empty State Container -->
+        <div id="emptyState" class="state-container hidden" role="status">
+          <div class="state-icon" aria-hidden="true">🔍</div>
+          <h3 class="state-title">No matching internships found</h3>
+          <p class="state-desc">Try clearing your filters or searching for a different skill or role title.</p>
+          <button type="button" id="emptyResetBtn" class="btn btn-primary">Clear All Filters</button>
+        </div>
+
+        <!-- Error State Container -->
+        <div id="errorState" class="state-container state-error hidden" role="alert">
+          <div class="state-icon" aria-hidden="true">⚠️</div>
+          <h3 class="state-title">Unable to load internships</h3>
+          <p class="state-desc" id="errorMessage">We encountered an issue fetching the internship records.</p>
+          <div class="state-actions">
+            <button type="button" id="retryBtn" class="btn btn-primary">Retry</button>
+            <button type="button" id="fallbackBtn" class="btn btn-secondary">Switch to Offline Seed</button>
+          </div>
+        </div>
+
+        <!-- Loading State Skeleton -->
+        <div id="loadingState" class="cards-grid" aria-hidden="true">
+          <div class="card skeleton-card"></div>
+          <div class="card skeleton-card"></div>
+          <div class="card skeleton-card"></div>
+          <div class="card skeleton-card"></div>
+          <div class="card skeleton-card"></div>
+          <div class="card skeleton-card"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Explanatory / Project Architecture Section -->
+    <section class="about-section" id="aboutSection" aria-labelledby="aboutHeading">
+      <div class="container">
+        <div class="section-header text-center">
+          <h2 id="aboutHeading" class="section-title">Built for Production Rigor</h2>
+          <p class="section-subtitle">A clean dual-task architecture demonstrating vanilla web fundamentals and modern Node.js backend practices.</p>
+        </div>
+
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">🎨</div>
+            <h3 class="feature-title">Task 2: Responsive Frontend</h3>
+            <p class="feature-text">
+              Zero frontend dependencies. Semantic HTML5, accessible dialog management, CSS grid/flexbox responsive down to 360px mobile width, and strict safe DOM manipulation.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">⚡</div>
+            <h3 class="feature-title">Task 3: REST API &amp; SQLite</h3>
+            <p class="feature-text">
+              Node.js and Express REST API with parameterized SQLite queries, data validation, pagination, duplicate prevention, and uniform JSON response envelopes.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">🛡️</div>
+            <h3 class="feature-title">WCAG 2.1 AA Accessible</h3>
+            <p class="feature-text">
+              Equipped with a skip link, high-contrast color palette, visible focus states, ARIA live regions, semantic labels, keyboard trap dialogs, and reduced-motion preferences.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">🔄</div>
+            <h3 class="feature-title">Resilient Dual-Mode</h3>
+            <p class="feature-text">
+              Automatically interacts with the live Express API when available. Seamlessly falls back to local static JSON records if the API is offline, ensuring zero downtime.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- API Reference Overview Section -->
+    <section class="api-info-section" id="apiInfoSection" aria-labelledby="apiHeading">
+      <div class="container">
+        <div class="api-card">
+          <div class="api-header">
+            <div>
+              <h2 id="apiHeading" class="api-card-title">Backend REST API Reference</h2>
+              <p class="api-card-desc">Tested endpoints available at <code>http://localhost:5000/api</code></p>
+            </div>
+            <span class="badge-chip">SQLite 3</span>
+          </div>
+
+          <div class="endpoint-table-wrapper">
+            <table class="endpoint-table">
+              <thead>
+                <tr>
+                  <th scope="col">Method</th>
+                  <th scope="col">Endpoint</th>
+                  <th scope="col">Purpose</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="badge-method method-get">GET</span></td>
+                  <td><code>/api/health</code></td>
+                  <td>System health check and uptime stats</td>
+                  <td>200 OK</td>
+                </tr>
+                <tr>
+                  <td><span class="badge-method method-get">GET</span></td>
+                  <td><code>/api/internships</code></td>
+                  <td>List internships (pagination, search, filter)</td>
+                  <td>200 OK</td>
+                </tr>
+                <tr>
+                  <td><span class="badge-method method-get">GET</span></td>
+                  <td><code>/api/internships/:id</code></td>
+                  <td>Retrieve specific internship details</td>
+                  <td>200 / 404</td>
+                </tr>
+                <tr>
+                  <td><span class="badge-method method-post">POST</span></td>
+                  <td><code>/api/internships</code></td>
+                  <td>Create a new internship position</td>
+                  <td>201 Created</td>
+                </tr>
+                <tr>
+                  <td><span class="badge-method method-put">PUT</span></td>
+                  <td><code>/api/internships/:id</code></td>
+                  <td>Update internship information</td>
+                  <td>200 OK</td>
+                </tr>
+                <tr>
+                  <td><span class="badge-method method-delete">DELETE</span></td>
+                  <td><code>/api/internships/:id</code></td>
+                  <td>Delete an internship listing</td>
+                  <td>200 OK</td>
+                </tr>
+                <tr>
+                  <td><span class="badge-method method-post">POST</span></td>
+                  <td><code>/api/applications</code></td>
+                  <td>Submit application (duplicate protected)</td>
+                  <td>201 / 409</td>
+                </tr>
+                <tr>
+                  <td><span class="badge-method method-get">GET</span></td>
+                  <td><code>/api/applications</code></td>
+                  <td>Safe audit log of submitted applications</td>
+                  <td>200 OK</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Accessible Internship Detail & Application Dialog -->
+  <dialog id="detailDialog" class="modal-dialog" aria-labelledby="dialogTitle" aria-describedby="dialogSubtitle" closedby="any">
+    <div class="dialog-content" role="document">
+      <!-- Dialog Header -->
+      <header class="dialog-header">
+        <div class="dialog-title-wrap">
+          <div class="dialog-badge-group">
+            <span class="badge-domain" id="dialogDomain">Domain</span>
+            <span class="badge-mode" id="dialogMode">Mode</span>
+            <span class="badge-id" id="dialogId">INT-000</span>
+          </div>
+          <h2 id="dialogTitle" class="dialog-title">Internship Details</h2>
+          <p id="dialogSubtitle" class="dialog-subtitle">Position Overview and Application</p>
+        </div>
+        <button type="button" id="closeDetailBtn" class="dialog-close-btn" aria-label="Close dialog">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </header>
+
+      <!-- Dialog Body -->
+      <div class="dialog-body">
+        <!-- Metadata Grid -->
+        <div class="detail-stats-grid">
+          <div class="stat-box">
+            <span class="stat-label">Location</span>
+            <span class="stat-val" id="dialogLocation">India</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">Duration</span>
+            <span class="stat-val" id="dialogDuration">4 Weeks</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">Openings</span>
+            <span class="stat-val" id="dialogOpenings">1 Opening</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">Application Status</span>
+            <span class="stat-val" id="dialogStatus">Accepting</span>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="detail-section">
+          <h3 class="detail-section-title">Role Description</h3>
+          <p class="detail-desc" id="dialogDescription">Description text...</p>
+        </div>
+
+        <!-- Required Skills -->
+        <div class="detail-section">
+          <h3 class="detail-section-title">Skills &amp; Technologies</h3>
+          <div class="skills-wrap" id="dialogSkills">
+            <!-- Dynamically populated skills -->
+          </div>
+        </div>
+
+        <hr class="dialog-divider">
+
+        <!-- Application Form (Sample Test Application) -->
+        <section class="application-section" aria-labelledby="appFormHeading">
+          <div class="app-section-header">
+            <h3 id="appFormHeading" class="detail-section-title">Submit Sample Application</h3>
+            <p class="app-disclaimer">
+              This form tests the <code>POST /api/applications</code> endpoint. Safe demo use only.
+            </p>
+          </div>
+
+          <!-- Alert feedback box -->
+          <div id="formAlert" class="alert-box hidden" role="alert" aria-live="assertive"></div>
+
+          <form id="applicationForm" novalidate>
+            <input type="hidden" id="appInternshipId" name="internship_id" value="">
+
+            <div class="form-row">
+              <div class="form-group flex-1">
+                <label for="applicantName" class="form-label">
+                  Your Full Name <span class="required-star" aria-hidden="true">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="applicantName"
+                  name="applicant_name"
+                  class="form-control"
+                  placeholder="e.g. Alex Morgan"
+                  required
+                  minlength="2"
+                  maxlength="100"
+                  autocomplete="name"
+                >
+                <span class="field-error" id="nameError" aria-live="polite"></span>
+              </div>
+
+              <div class="form-group flex-1">
+                <label for="applicantEmail" class="form-label">
+                  Email Address <span class="required-star" aria-hidden="true">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="applicantEmail"
+                  name="applicant_email"
+                  class="form-control"
+                  placeholder="e.g. alex@example.com"
+                  required
+                  autocomplete="email"
+                >
+                <span class="field-error" id="emailError" aria-live="polite"></span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="portfolioUrl" class="form-label">
+                Portfolio / GitHub URL <span class="optional-label">(Optional)</span>
+              </label>
+              <input
+                type="url"
+                id="portfolioUrl"
+                name="portfolio_url"
+                class="form-control"
+                placeholder="https://github.com/yourusername"
+                autocomplete="url"
+              >
+              <span class="field-error" id="urlError" aria-live="polite"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="applicantNotes" class="form-label">
+                Cover Note / Message <span class="optional-label">(Optional)</span>
+              </label>
+              <textarea
+                id="applicantNotes"
+                name="notes"
+                class="form-control textarea-control"
+                rows="3"
+                placeholder="Briefly state why you are interested in this position..."
+                maxlength="500"
+              ></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" id="submitAppBtn" class="btn btn-primary btn-block">
+                <span id="submitBtnText">Submit Application</span>
+                <span id="submitSpinner" class="spinner-small hidden" aria-hidden="true"></span>
+              </button>
+            </div>
+          </form>
+        </section>
+      </div>
+
+      <!-- Dialog Footer -->
+      <footer class="dialog-footer">
+        <button type="button" id="dialogCloseBottomBtn" class="btn btn-secondary">Close Window</button>
+      </footer>
+    </div>
+  </dialog>
+
+  <!-- Site Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-container">
+      <div class="footer-col brand-col">
+        <div class="brand">
+          <div class="brand-logo footer-logo" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+              <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+            </svg>
+          </div>
+          <span class="brand-name">Launchpad</span>
+        </div>
+        <p class="footer-desc">
+          EdVyro Full Stack Internship Project. Built with semantic HTML5, CSS3, vanilla JavaScript, Node.js, and SQLite.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title">Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="#listingsSection">Browse Internships</a></li>
+          <li><a href="#aboutSection">Architecture Overview</a></li>
+          <li><a href="#apiInfoSection">API Reference</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title">Official Resources</h4>
+        <ul class="footer-links">
+          <li><a href="https://edvyro.in/datasets/task-kits/full-stack-development-task-1.html" target="_blank" rel="noopener noreferrer">Task 2 Specification</a></li>
+          <li><a href="https://edvyro.in/datasets/task-kits/full-stack-development-task-2.html" target="_blank" rel="noopener noreferrer">Task 3 Specification</a></li>
+          <li><a href="https://edvyro.in/datasets/source-materials/internship-records-sample.json" target="_blank" rel="noopener noreferrer">Official JSON Seed</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>&copy; 2026 Launchpad Internship Project • Built for EdVyro Full Stack Internship Evaluation</p>
+        <p class="footer-note">All sample data is fictional. No actual commercial employment is offered.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

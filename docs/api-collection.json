@@ -1,0 +1,194 @@
+{
+  "info": {
+    "name": "EdVyro Launchpad API Collection",
+    "description": "Complete Postman / Thunder Client collection for EdVyro Full Stack Internship Task 3.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "System Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "health"]
+        }
+      }
+    },
+    {
+      "name": "List Internships (Paginated)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/internships?page=1&limit=10",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "internships"],
+          "query": [
+            { "key": "page", "value": "1" },
+            { "key": "limit", "value": "10" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Filter by Domain",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/internships?domain=Full%20Stack%20Development",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "internships"],
+          "query": [
+            { "key": "domain", "value": "Full Stack Development" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Filter by Mode",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/internships?mode=Remote",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "internships"],
+          "query": [
+            { "key": "mode", "value": "Remote" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Search Internships",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/internships?search=Node.js",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "internships"],
+          "query": [
+            { "key": "search", "value": "Node.js" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Internship By ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/internships/INT-101",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "internships", "INT-101"]
+        }
+      }
+    },
+    {
+      "name": "Create Internship",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": \"INT-301\",\n  \"title\": \"Backend Systems Intern\",\n  \"domain\": \"Full Stack Development\",\n  \"mode\": \"Remote\",\n  \"location\": \"India\",\n  \"duration_weeks\": 8,\n  \"openings\": 2,\n  \"skills\": [\"Node.js\", \"Express\", \"SQLite\"],\n  \"description\": \"Design scalable REST services.\",\n  \"applications_open\": 1\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/internships",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "internships"]
+        }
+      }
+    },
+    {
+      "name": "Update Internship",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Lead Backend Systems Intern\",\n  \"openings\": 3\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/internships/INT-301",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "internships", "INT-301"]
+        }
+      }
+    },
+    {
+      "name": "Delete Internship",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/internships/INT-301",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "internships", "INT-301"]
+        }
+      }
+    },
+    {
+      "name": "Submit Application",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"internship_id\": \"INT-101\",\n  \"applicant_name\": \"Jordan Smith\",\n  \"applicant_email\": \"jordan.smith@example.com\",\n  \"portfolio_url\": \"https://github.com/jordansmith\",\n  \"notes\": \"Strong enthusiasm for full stack development.\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/applications",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "applications"]
+        }
+      }
+    },
+    {
+      "name": "Get Applications (Audit Log)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/applications",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "applications"]
+        }
+      }
+    }
+  ]
+}

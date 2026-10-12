@@ -1,0 +1,22 @@
+{
+  "name": "edvyro-internship-server",
+  "version": "1.0.0",
+  "description": "Express and SQLite REST API for EdVyro Launchpad internship discovery",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "seed": "node seed.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  },
+  "optionalDependencies": {
+    "better-sqlite3": "^11.8.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

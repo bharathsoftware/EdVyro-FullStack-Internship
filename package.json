@@ -1,0 +1,23 @@
+{
+  "name": "edvyro-fullstack-internship",
+  "version": "1.0.0",
+  "description": "EdVyro Full Stack Internship Project - Responsive Frontend & REST API with SQLite",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "seed": "node server/seed.js",
+    "test": "node --test tests/api.test.js",
+    "dev": "node --watch server/server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  },
+  "optionalDependencies": {
+    "better-sqlite3": "^11.8.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
